@@ -94,6 +94,9 @@ class FPS extends TextField
 			text += "\nRAM: " + memoryMegas + " MB";
 			#end
 
+			// text += "\nDrCa: " + flixel.graphics.tile.FlxDrawBaseItem.drawCalls;
+
+			// i saw someone enable this unironically 
 			#if HACKER
 			text = "";
 			text += "Frames Per Second: " + currentFPS + "\n";

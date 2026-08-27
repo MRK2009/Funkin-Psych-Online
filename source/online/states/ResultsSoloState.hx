@@ -7,8 +7,6 @@ import flixel.math.FlxVelocity;
 import flixel.text.FlxBitmapText;
 import flixel.addons.transition.FlxTransitionableState;
 
-import online.states.ResultsSoloState.DA_ANGLE;
-
 // written everything based of my observations :ngNerd:
 
 #if lumod

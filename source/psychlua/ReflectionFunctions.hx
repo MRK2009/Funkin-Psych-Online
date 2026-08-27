@@ -12,6 +12,7 @@ import substates.GameOverSubstate;
 
 class ReflectionFunctions
 {
+	static final instanceStr:Dynamic = "##PSYCHLUA_STRINGTOOBJ";
 	public static function implement(funk:FunkinLua)
 	{
 		var lua:State = funk.lua;
@@ -246,6 +247,11 @@ class ReflectionFunctions
 				}
 			}
 			else funk.luaTrace('addInstance: Can\'t add what doesn\'t exist~ ($objectName)', false, false, FlxColor.RED);
+		});
+		Lua_helper.add_callback(lua, "instanceArg", function(instanceName:String, ?className:String = null) {
+			var retStr:String ='$instanceStr::$instanceName';
+			if(className != null) retStr += '::$className';
+			return retStr;
 		});
 	}
 

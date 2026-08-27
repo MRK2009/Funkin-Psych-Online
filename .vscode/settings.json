@@ -1,5 +1,6 @@
 {
     "haxe.displayServer": {
         "_arguments": ["-v"]
-    }
+    },
+    "haxe.diagnosticsPathFilter": "${workspaceRoot}/source",
 }

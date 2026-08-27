@@ -48,6 +48,9 @@ class Waiter extends FlxBasic {
 	public static var waiterReports:String = '';
 
 	function _processQueue(queue:Array<Dynamic>):Void {
+		if (queue.length == 0)
+			return;
+
 		while (true) {
 			_queueRAW = _shiftQueue(queue);
 

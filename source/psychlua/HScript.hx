@@ -69,8 +69,10 @@ class HScript extends SScript
 
 		notAllowedClasses = Deflection.classBlacklist.copy();
 
+		#if VIDEOS_ALLOWED
 		set('FlxVideo', hxcodec.flixel.FlxVideo);
 		set('MP4Handler', vlc.MP4Handler);
+		#end
 
 		// Some very commonly used classes
 		set('FlxG', flixel.FlxG);

@@ -30,6 +30,18 @@ import haxe.io.Path;
 import sys.io.File;
 import sys.io.Process;
 
+class FunkinFlxGame extends FlxGame {
+	override function update() {
+		try {
+			super.update();
+		}
+		catch (e:Dynamic) {
+			Main.onCrash(e, false);
+			FlxG.switchState(() -> new MainMenuState());
+		}
+	}
+}
+
 class Main extends Sprite
 {
 	var game = {
@@ -87,12 +99,15 @@ class Main extends Sprite
 		
 		// Lib.current.addChild(view3D = new online.away.View3DHandler());
 		var alertSprite = new online.gui.Alert();
-		Lib.current.addChild(new online.gui.LoadingScreen());
+		var loadingScreen = new online.gui.LoadingScreen();
+		var sideUI = new online.gui.sidebar.SideUI();
+
+		Lib.current.addChild(loadingScreen);
 		
 		var daMain = new Main();
 		Lib.current.addChild(daMain);
 		Lib.current.setChildIndex(daMain, 0);
-		Lib.current.addChild(new online.gui.sidebar.SideUI());
+		Lib.current.addChild(sideUI);
 		Lib.current.addChild(alertSprite);
 	}
 
@@ -155,12 +170,17 @@ class Main extends Sprite
 		#if hl
 		sys.ssl.Socket.DEFAULT_VERIFY_CERT = false;
 		#end
+
+		// #if windows
+		// @:cppInclude("timeapi.h")
+		// @:cppCode("timeBeginPeriod(1);")
+		// #end
 	
 		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
-		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
-
+		addChild(new FunkinFlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+		
 		#if !mobile
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
@@ -368,7 +388,7 @@ class Main extends Sprite
 		}
 	}
 
-	static function onCrash(exc:Dynamic):Void
+	public static function onCrash(exc:Dynamic, ?closeGame:Bool = true):Void
 	{
 		trace(" . CRASHED . ");
 
@@ -472,6 +492,10 @@ class Main extends Sprite
 		#else
 		Application.current.window.alert(alertMsg, "Uncaught Exception!");
 		#end
+
+		if (!closeGame)
+			return;
+
 		try {
 			GameClient.leaveRoom();
 		} catch (exc) {}

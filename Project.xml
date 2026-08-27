@@ -103,46 +103,59 @@
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
-	<haxelib name="flixel" />
-	<haxelib name="flixel-ui" />
-	<haxelib name="flixel-addons" />
+	<section>
+		<haxelib name="lime"               version="8.1.3" />
+		<haxelib name="openfl"             version="9.3.3" />
+		<haxelib name="flixel"             version="5.8.0" />
+		<haxelib name="flixel-addons"      version="3.2.2" />
+		<haxelib name="flixel-tools"       version="1.5.1" />
+		<haxelib name="flixel-ui"          version="2.6.4" />
+		<haxelib name="hxcpp"              version="4.3.2" />
+		<haxelib name="tjson"              version="1.4.0" />
+		<haxelib name="colyseus"           version="0.17.3" />
+		<haxelib name="colyseus-websocket" version="1.0.15" />
+		<haxelib name="HtmlParser"         version="3.4.0" />
+		<haxelib name="UnRAR"              version="1.0.0" />
+		<haxelib name="away3d"             version="git" url="https://github.com/Snirozu/away3d"       ref="master" />
+		<haxelib name="json2object"        version="3.11.0" />
+		<haxelib name="hxjsonast"          version="1.1.0" />
+		<haxelib name="flxanimate"         version="git" url="https://github.com/Dot-Stuff/flxanimate" ref="v4.0.0" />
+		<haxelib name="lumod"              version="2.2.0" />
+		<haxelib name="actuate"            version="1.9.0" />
+		<haxelib name="compiletime"        version="2.8.0" />
+		<haxelib name="grig.audio"         version="git" url="https://github.com/Snirozu/grig.audio"   ref="162f924bdde427fc84af5b51961d2faef51f6955" />
+		<haxelib name="tink_core"          version="2.1.1" />
+		<haxelib name="yagp"               version="git" url="https://github.com/Snirozu/yagp"         ref="master" />
+		<haxelib name="funkin.vis"         version="git" url="https://github.com/FunkinCrew/funkVis"   ref="1966f8fbbbc509ed90d4b520f3c49c084fc92fd6" />
+		<haxelib name="feathersui"         version="1.3.1" />
+	</section>
 
-	<!--Psych stuff needed-->
-	<haxelib name="linc_luajit" if="LUA_ALLOWED" />
-	<haxelib name="SScript" if="HSCRIPT_ALLOWED" />
-	<haxelib name="hxvlc" if="VIDEOS_ALLOWED" />
-	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED" />
-	<haxelib name="tjson" />
-	<haxelib name="colyseus" />
-	<haxelib name="HtmlParser" />
-	<haxelib name="UnRAR" />
-	<haxelib name="away3d" />
-	<haxelib name="json2object" />
-	<haxelib name="hxjsonast" />
-	<haxelib name="flxanimate" />
-	<haxelib name="lumod" />
-	<haxelib name="actuate" />
-	<haxelib name="compiletime" />
-	<haxelib name="funkin.vis" />
-	<haxelib name="grig.audio" />
-	<haxelib name="away3d" />
-	<haxelib name="yagp" />
-	<haxelib name="tink_await" />
-	<haxelib name="feathersui" />
-	<!-- <haxelib name="interpret" /> -->
+	<section if="VIDEOS_ALLOWED">
+		<haxelib name="hxvlc" version="2.0.1" />
+	</section>
 
-	<haxedef name="interpretable" />
-	<haxedef name="interpret_watch" />
+	<section if="DISCORD_ALLOWED">
+		<haxelib name="hxdiscord_rpc" version="1.3.0" />
+	</section>
+
+	<section if="LUA_ALLOWED">
+		<haxelib name="linc_luajit" version="git" url="https://github.com/Snirozu/linc_luajit" ref="master" />
+	</section>
+
+	<section if="HSCRIPT_ALLOWED">
+		<haxelib name="hscript" version="2.6.0" />
+		<haxelib name="SScript" version="git" url="https://github.com/Snirozu/SScript-7.7.0" ref="main" />
+	</section>
+
+	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<haxedef name="openflPos" />
 	<haxedef name="hscriptPos" />
 
 	<!-- Enables a terminal log prompt on debug builds -->
-	<haxelib name="hxcpp-debug-server" if="debug"/>
+	<!-- <haxelib name="hxcpp-debug-server" if="debug"/> -->
 	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
 	<haxedef name="LUMOD_HSCRIPT" />
-
-	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<!--Enable the Flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->
@@ -172,17 +185,16 @@
 	<haxedef name="HXC_DEBUG_TRACE" if="debug" />
 
 	<!--Disable the Flixel core debugger. Automatically gets set whenever you compile in release mode!-->
-	<haxedef name="FLX_NO_DEBUG" /> <!-- worst debugger ever lol -->
+	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 
 	<!--Enable this for Nape release builds for a serious peformance improvement-->
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
 	<!--Used for Izzy Engine's crash handler-->
-	<haxedef name="HXCPP_CHECK_POINTER" />
+	<haxedef name="HXCPP_GC_CHECK_POINTER" />
 	<haxedef name="HXCPP_STACK_LINE" />
 	<haxedef name="HXCPP_STACK_TRACE" />
 	<haxedef name="HXCPP_CATCH_SEGV" />
-	<haxedef name="HXCPP_DEBUG_LINK" />
 
 	<!-- <haxedef name="message.reporting" value="pretty" /> -->
 	<haxedef name='no-deprecation-warnings' />
@@ -213,12 +225,17 @@
 	<!-- DEBUG PERFORMANCE ANALYZER FOR HXSCOUT!!!!! -->
 	<section if='telemetry'>
 		<haxelib name="hxtelemetry" />
+		<haxedef name="HXCPP_TELEMETRY" />
+		<haxedef name="HXCPP_GC_SUMMARY" />
+		<haxedef name="HXCPP_GC_VERIFY" />
+		<haxeflag name="-D" value="HXCPP_GC_DEBUG_LEVEL=4"/>
+		<!-- hmm maybe use this to debug lua better -->
+		<!-- <haxedef name="HXCPP_PROFILER" /> -->
 	</section>
 	<!-- <haxeflag name="-D" value="telemetry" /> -->
 
-	<!-- hmm maybe use this to debug lua better -->
-	<!-- <haxedef name="HXCPP_PROFILER" /> -->
-	<haxedef name="HXCPP_GC_CHECK_LEAKS" /> 
+	<!-- <haxedef name="HXCPP_GC_DYNAMIC_SIZE" /> -->
+	<!-- <haxedef name="HXCPP_GC_GENERATIONAL" /> -->
 
 	<!-- _________________________________ Custom _______________________________ -->
 

@@ -1,13 +1,11 @@
 package online.backend;
 
-import CompileTime;
-
 class Deflection {
 	//@:unreflective public static final luaClassBlacklist:Array<String> = ['cpp', 'lib', 'reflect', 'cffi', 'process', 'lua', 'http'];
     @:unreflective public static var classBlacklist(get, default):Array<Class<Dynamic>> = null;
 	public static var CLASS_ALIASES:Map<String, String> = [
 		"Achievements" => "backend.Achievements",
-		"AchievementsMenuState" => "",
+		// "AchievementsMenuState" => "",
 		"Alphabet" => "objects.Alphabet",
 		"AttachedSprite" => "objects.AttachedSprite",
 		"AttachedText" => "objects.AttachedText",
@@ -16,7 +14,7 @@ class Deflection {
 		"BackgroundGirls" => "states.stages.objects.BackgroundGirls",
 		"BlendModeEffect" => "shaders.BlendModeEffect",
 		"Boyfriend" => "objects.Character",
-		"ButtonRemapSubstate" => "",
+		// "ButtonRemapSubstate" => "",
 		"Character" => "objects.Character",
 		// "ChartParser" => "", // removed?
 		"CheckboxThingie" => "objects.CheckboxThingie",
@@ -154,6 +152,7 @@ class Deflection {
 		// SyncScript can load malicious scripts
 		blacklist.push(online.backend.SyncScript);
 
+		#if !display
 		// `polymod.*`
 		// Contains functions which may allow for un-blacklisting other modules.
 		for (cls in CompileTime.getAllClasses('polymod')) {
@@ -189,6 +188,7 @@ class Deflection {
 		}
 
 		blacklist.push(CompileTime);
+		#end
 
 		#if (extension_androidtools)
 		// `android.jni.JNICache`

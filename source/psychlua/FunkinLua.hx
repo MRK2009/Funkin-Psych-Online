@@ -1866,11 +1866,11 @@ class FunkinLua {
 	}
 
 	public function quickGC() {
-		CoolUtil.teleStamp(true);
+		// CoolUtil.teleStamp(true);
 		if (lua != null) {
 			Lua.gc(lua, Lua.LUA_GCSTEP, 1);
 			Lua.gc(lua, Lua.LUA_GCSTOP, 0);
 		}
-		CoolUtil.teleStamp();
+		// CoolUtil.teleStamp();
 	}
 }

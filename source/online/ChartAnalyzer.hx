@@ -9,6 +9,10 @@ typedef FunkinDiffInfo = {
 }
 
 class ChartAnalyzer {
+
+    //TODO important before prod
+    //end analysis once inst end
+
     public static function calc(songData:SwagSong, mustPress:Bool):FunkinDiffInfo {
 		// for 4k this will have 0000 bits
 		// each 0 is another row for the key

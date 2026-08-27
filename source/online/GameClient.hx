@@ -311,7 +311,7 @@ class GameClient {
         });
 	}
 
-    public static function isConnected() {
+    public static inline function isConnected() {
 		return client != null || reconnecting;
     }
 

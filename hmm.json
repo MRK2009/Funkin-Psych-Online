@@ -88,11 +88,6 @@
     },
     {
       "name": "away3d",
-      "type": "haxelib",
-      "version": "5.0.9"
-    },
-    {
-      "name": "away3d",
       "type": "git",
       "dir": null,
       "ref": "master",

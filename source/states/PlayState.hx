@@ -107,6 +107,7 @@ import tea.SScript;
 import online.backend.schema.Player;
 
 @:build(online.backend.Macros.getSetForwarder())
+// @:build(online.backend.MonitorMacro.build())
 class PlayState extends MusicBeatState
 {
 	// use only for mod compatibility
@@ -593,6 +594,11 @@ class PlayState extends MusicBeatState
 
 		Paths.clearUnusedMemory();
 		Paths.clearStoredMemory();
+
+		// disable GC
+		// #if cpp
+		// cpp.vm.Gc.enable(false);
+		// #end
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new backend.PsychCamera();
@@ -2353,6 +2359,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	//ISLAGGING
 	public function updateScore(miss:Bool = false, ?skipRest:Bool = false)
 	{
 		var points = FlxMath.roundDecimal(
@@ -4941,6 +4948,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	//ISLAGGING
 	private function popUpScore(note:Note = null):Rating
 	{
 		var noteDiffNoAbs:Float = note.strumTime - (Conductor.judgeSongPosition ?? Conductor.songPosition) + ClientPrefs.getRatingOffset();
@@ -5777,13 +5785,15 @@ class PlayState extends MusicBeatState
 		if(note != null) {
 			var strum:StrumNote = getPlayerStrums().members[note.noteData];
 			if(strum != null)
-				spawnNoteSplash(strum.x - (Note.swagWidth - Note.swagScaledWidth), strum.y - (Note.swagWidth - Note.swagScaledWidth), note.noteData, note);
+				spawnNoteSplash(strum.x - (Note.swagWidth - Note.swagScaledWidth), strum.y - (Note.swagWidth - Note.swagScaledWidth), note.noteData, note, strum);
 		}
 	}
 
-	public function spawnNoteSplash(x:Float, y:Float, data:Int, ?note:Note = null) {
+
+	public function spawnNoteSplash(x:Float = 0, y:Float = 0, ?data:Int = 0, ?note:Note, ?strum:StrumNote) {
 		var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
-		splash.setupNoteSplash(x, y, data, note);
+		splash.babyArrow = strum;
+		splash.spawnSplashNote(x, y, data, note);
 		grpNoteSplashes.add(splash);
 	}
 
@@ -5855,6 +5865,11 @@ class PlayState extends MusicBeatState
 		// Lib.application.window.resizable = true;
 		Lib.application.window.title = "Friday Night Funkin': Psych Online" + (states.TitleState.inDev ? ' [DEV]' : '');
 		#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
+		
+		// enable GC
+		// #if cpp
+		// cpp.vm.Gc.enable(true);
+		// #end
 	}
 
 	public static function cancelMusicFadeTween() {
@@ -6485,7 +6500,7 @@ class PlayState extends MusicBeatState
 		return !opponentMode;
 	}
 
-	public static function isPlayerNote(note:Note):Bool {
+	public static inline function isPlayerNote(note:Note):Bool {
 		return note.mustPress == playsAsBF();
 	}
 

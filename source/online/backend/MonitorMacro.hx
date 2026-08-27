@@ -155,7 +155,7 @@ class MonitorMacro {
 	}
 
 	public static function setTime(k:String, v:Float) {
-		if (v < 0.05)
+		if (v < 0.01)
 			return;
 		#if !macro
 		log('[!] Lag: $k -> ${flixel.math.FlxMath.roundDecimal(v, 2)}s');

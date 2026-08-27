@@ -79,11 +79,13 @@ class ScriptedState3D extends FlxState3D {
 		script.set("print", s -> Sys.println(s));
 		script.set("typeof", s -> Type.getClassName(Type.getClass(s)));
 		script.set("alert", (title, ?message) -> Alert.alert(title, message));
+		#if !display
 		for (cls in CompileTime.getAllClasses('away3d')) {
 			if (cls == null)
 				continue;
 			script.set(Type.getClassName(cls).split('.').pop(), cls);
 		}
+		#end
 		for (block in Deflection.classBlacklist) {
 			script.notAllowedClasses.push(block);
 		}
