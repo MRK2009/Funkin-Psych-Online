@@ -43,7 +43,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
-          sudo apt-get install libvlc-dev libvlccore-dev
+          sudo apt-get install libvlc-dev
+          sudo apt-get install libvlccore-dev
           haxelib setup ~/haxelib
           haxelib install lpm --quiet
           haxelib run lpm install
@@ -166,7 +167,8 @@ jobs:
   #     # Runs a set of commands using the runners shell
   #     - name: Install Haxelib
   #       run: |
-  #         sudo apt-get install libvlc-dev libvlccore-dev
+  #         sudo apt-get install libvlc-dev
+  #         sudo apt-get install libvlccore-dev
   #         haxelib setup ~/haxelib
   #         haxelib install lpm --quiet
   #         haxelib run lpm install
